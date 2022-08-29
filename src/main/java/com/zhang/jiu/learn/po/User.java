@@ -11,7 +11,7 @@ import lombok.Data;
 public class User {
     @EsId
     private String id;
-    @EsField
+    @EsField(type = FieldTypeEnum.TEXT,keywordAttach = true)
     private String name;
     @EsField(type = FieldTypeEnum.INTEGER)
     private Integer age;

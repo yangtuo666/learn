@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class Teacher {
-    @EsField
+    @EsField(keywordAttach = true)
     private String teacherName;
     @EsField(type = FieldTypeEnum.INTEGER)
     private Integer teacherAge;

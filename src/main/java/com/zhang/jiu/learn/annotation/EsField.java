@@ -26,5 +26,7 @@ public @interface EsField  {
      * @return
      */
     AnalyzerTypeEnum analyzer() default AnalyzerTypeEnum.STANDARD;
+
+    boolean keywordAttach() default false;
 }
 

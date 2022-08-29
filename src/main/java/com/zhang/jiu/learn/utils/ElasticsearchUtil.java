@@ -483,6 +483,14 @@ public class ElasticsearchUtil {
                             if (declaredAnnotation2.type() == FieldTypeEnum.TEXT) {
                                 builder.field("analyzer", declaredAnnotation2.analyzer().getType());
                             }
+                            if (declaredAnnotation2.keywordAttach()){
+                                builder.startObject("fields");
+                                builder.startObject("keyword");
+                                builder.field("type","keyword");
+                                builder.field("ignore_above",256);
+                                builder.endObject();
+                                builder.endObject();
+                            }
                             if (declaredAnnotation2.type() == FieldTypeEnum.DATE) {
                                 builder.field("format", "yyyy-MM-dd HH:mm:ss");
                             }
@@ -498,6 +506,14 @@ public class ElasticsearchUtil {
                     // keyword不需要分词
                     if (declaredAnnotation.type() == FieldTypeEnum.TEXT) {
                         builder.field("analyzer", declaredAnnotation.analyzer().getType());
+                    }
+                    if (declaredAnnotation.keywordAttach()){
+                        builder.startObject("fields");
+                        builder.startObject("keyword");
+                        builder.field("type","keyword");
+                        builder.field("ignore_above",256);
+                        builder.endObject();
+                        builder.endObject();
                     }
                     if (declaredAnnotation.type() == FieldTypeEnum.DATE) {
                         builder.field("format", "yyyy-MM-dd HH:mm:ss");
