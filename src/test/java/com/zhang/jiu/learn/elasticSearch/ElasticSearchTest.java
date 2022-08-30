@@ -23,6 +23,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 public class ElasticSearchTest {
@@ -52,14 +54,28 @@ public class ElasticSearchTest {
         //String userjson = elasticsearchUtil.queryById("user_index", user.getId());
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         //精确查询(要查询的字段必须是keyword)
-        //TermQueryBuilder queryBuilder = QueryBuilders.termQuery("name", "小明");
+        //TermQueryBuilder queryBuilder = QueryBuilders.termQuery("name.keyword", "小明");
         //MatchQueryBuilder queryBuilder = QueryBuilders.matchQuery("name.keyword", "小明");
         //前缀查询
         //PrefixQueryBuilder queryBuilder = QueryBuilders.prefixQuery("name", "小明");
         //模糊查询
         //MatchQueryBuilder queryBuilder = QueryBuilders.matchQuery("name", "小明");
         //范围查询
-        RangeQueryBuilder queryBuilder = QueryBuilders.rangeQuery("age").from(12).to(16).includeLower(true);
+        //RangeQueryBuilder queryBuilder = QueryBuilders.rangeQuery("age").from(12).to(16).includeLower(true);
+        //and 查询
+        //BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery().must(QueryBuilders.matchQuery("name", "小明")).must(QueryBuilders.rangeQuery("age").from(15).includeLower(true));
+        //or 查询
+        //BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery().should(QueryBuilders.matchQuery("name.keyword", "小明")).should(QueryBuilders.rangeQuery("age").from(15).includeLower(true));
+        //二级属性字段查询
+        //MatchQueryBuilder queryBuilder = QueryBuilders.matchQuery("teacher.teacherName", "更改");
+        List<String> names = new ArrayList<>();
+        names.add("小明");
+        //in 查询
+        //TermsQueryBuilder queryBuilder = QueryBuilders.termsQuery("name.keyword", names);
+        //not in 查询
+        //BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery().mustNot(QueryBuilders.termsQuery("name.keyword", names));
+        //通配符检索
+        WildcardQueryBuilder queryBuilder = QueryBuilders.wildcardQuery("teacher.teacherName.keyword", "更?蛋");
         searchSourceBuilder.query(queryBuilder);
         PageInfo<User> search = elasticsearchUtil.search(searchSourceBuilder, 1, 10, User.class);
 
