@@ -17,4 +17,11 @@ public class User {
     private Integer age;
     @EsField(type = FieldTypeEnum.OBJECT)
     private Teacher teacher;
+
+    public static void main(String[] args) {
+        String inte = "null";
+        Integer integer = Integer.valueOf(inte);
+        System.out.println(integer);
+
+    }
 }

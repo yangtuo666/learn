@@ -2,6 +2,8 @@ package com.zhang.jiu.learn.complatable;
 
 import org.junit.jupiter.api.Test;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.concurrent.*;
 
 public class CompletableTest {
@@ -60,6 +62,12 @@ public class CompletableTest {
         });
 
         System.out.println(futureFinal2.get());
+    }
+    @Test
+    public void test2 () throws UnknownHostException {
+        InetAddress address = InetAddress.getLocalHost();
+        String hostAddress = address.getHostAddress();
+        System.out.println(hostAddress);
     }
 
     public static class Task1 implements Runnable {
